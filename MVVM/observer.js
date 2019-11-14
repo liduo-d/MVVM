@@ -22,19 +22,17 @@ Observer.prototype = {
             this.observeProperty(value, key, value[key])
         })
     },
-    // 实现数据劫持
+    // 监听属性
     observeProperty(value, key, val) {
-        // 定义一个消息订阅器dep
+        // 定义一个消息订阅器dep，每一个属性（包括子属性）对应一个dep
         let dep = new Dep();
-        // 二级对象（子属性）的监视
+        // 二级对象（子属性）的监听
         observe(val);
         Object.defineProperty(value, key, {
             enumerable: true,
             configurable: false,
             get() {
-                if(Dep.target){
-                    dep.depend()
-                }
+                Dep.target && dep.depend();
                 return val;
             },
             set(newVal) {
