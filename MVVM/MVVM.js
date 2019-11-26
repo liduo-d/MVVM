@@ -5,7 +5,7 @@
  */
 function MVVM(options) {
     this.$options = options || {};
-    // 将vm.$data存储在data中
+    // 将vm.$options.data存储在data中
     let data = this.$options.data;
     // vm新建私有属性_data映射，实现this._data访问到data数据
     data = this._data = typeof data === 'function' ? this.getData(data, this) : data || {};
@@ -21,7 +21,7 @@ function MVVM(options) {
 
 MVVM.prototype = {
     constructor: MVVM,
-    // 数据代理
+    // 数据代理,实现vm.**代替vm._data.**
     _proxy(key) {
         let self = this;
         Object.defineProperty(this, key, {
@@ -36,7 +36,7 @@ MVVM.prototype = {
 
         })
     },
-    // 实现this.**代替this._data.**
+    // typeof data:function=>object
     getData(data, vm) {
         return data.call(vm);
     }
