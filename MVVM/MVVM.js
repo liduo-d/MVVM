@@ -38,6 +38,6 @@ MVVM.prototype = {
     },
     // typeof data:function=>object
     getData(data, vm) {
-        return data.call(vm);
+        return data.call(vm, vm);
     }
 };

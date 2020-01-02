@@ -1,5 +1,4 @@
-<!--TODO-->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +7,18 @@
 <body>
 
 <div id="mvvm-app">
-
+    <div id="input">
+        <label>
+            <input type="text" v-model="name" placeholder='please input your name'>
+        </label>
+    </div>
+    <div id="text">
+        <span>{{showText}}</span>
+        <span>{{name}}</span>
+    </div>
+    <button @click="changeLang">
+        切换语言
+    </button>
 </div>
 
 <script src="MVVM/observer.js"></script>
@@ -17,8 +27,40 @@
 <script src="MVVM/MVVM.js"></script>
 <script>
     let vm = new MVVM({
-        el: '#mvvm-app'
-    })
+        el: '#mvvm-app',
+        // data: {
+        //
+        //     showText: 'Hello,',
+        //     text: {
+        //         en: 'Hello,',
+        //         zh: '你好，'
+        //     },
+        //     name: 'liduo-d',
+        //     flag: true
+        //
+        // },
+        data() {
+            return {
+                showText: 'Hello,',
+                text: {
+                    en: 'Hello,',
+                    zh: '你好，'
+                },
+                name: 'liduo-d',
+                flag: true
+            }
+        },
+        methods: {
+            changeLang() {
+                this.flag = !this.flag;
+                if (!this.flag) {
+                    this.showText = this.text.zh
+                } else {
+                    this.showText = this.text.en
+                }
+            }
+        }
+    });
 </script>
 
 </body>
